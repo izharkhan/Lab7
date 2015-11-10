@@ -1,0 +1,311 @@
+
+<!-- Link to Public Repository - https://github.com/Izharkhan/Lab7.git	-->
+<HTML>
+<HEAD>
+<TITLE>Izhar khan lab7</TITLE>
+<style>
+#myButtons{
+	visibility:hidden;
+
+}
+#createFormBtn{
+	text-align:center;
+}
+#fields{
+	float:left;
+}
+
+body {
+  background: #fff;
+  background-image: url(http://subtlepatterns.com/patterns/noisy_net.png);
+}
+
+.wrap {
+  width: 50%;
+  margin: 5% auto;
+  text-align: center;
+}
+
+.orange {
+background: #ed9d4e; /* Old browsers */
+background: -moz-linear-gradient(top,  #ed9d4e 0%, #ed850e 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ed9d4e), color-stop(100%,#ed850e)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ed9d4e 0%,#ed850e 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ed9d4e 0%,#ed850e 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ed9d4e 0%,#ed850e 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ed9d4e 0%,#ed850e 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed9d4e', endColorstr='#ed850e',GradientType=0 ); /* IE6-9 */
+
+  color: #fff;
+  
+  &:hover {
+background: #ed850e; /* Old browsers */
+background: -moz-linear-gradient(top,  #ed850e 0%, #ed9d4e 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ed850e), color-stop(100%,#ed9d4e)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ed850e 0%,#ed9d4e 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ed850e 0%,#ed9d4e 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ed850e 0%,#ed9d4e 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ed850e 0%,#ed9d4e 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed850e', endColorstr='#ed9d4e',GradientType=0 ); /* IE6-9 */
+
+}
+  
+  &:active {
+    position: relative;
+    top: 2px;
+  }
+
+}
+
+@main-color:#ed850e;
+
+.nice-button {
+  span{
+    padding-left: 10px;
+  }
+  text-shadow: 0px -1px 0px darken(@main-color, 20%);
+  text-transform:uppercase;
+  font-size: 20px;
+  padding: .75em 1.5em;
+  border-radius: 5px;
+  text-decoration: none;
+  border: 1px solid darken(@main-color, 22%);
+  box-shadow: 0px 4px 0px -1px darken(@main-color, 30%), 0px 4px 5px rgba(0,0,0,.55), inset 0px 0px 0px 1px rgba(255,255,255,.15);
+  
+  &:active {
+    position: relative;
+    top: 4px;
+    box-shadow: none;
+        -webkit-transition: all 0.09s ease-out;  /* Chrome 1-25, Safari 3.2+ */
+     -moz-transition: all 0.09s ease-out;  /* Firefox 4-15 */
+       -o-transition: all 0.09s ease-out;  /* Opera 10.50–12.00 */
+          transition: all 0.09s ease-out;  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.50+ */
+  }
+}
+
+
+</style>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+<script >
+var myJSON;
+var dynamicFormName;
+
+function addForm() {
+	dynamicFormName = prompt("Form Name: ");
+	document.getElementById("myButtons").style.visibility = "visible"
+	document.getElementById("fields").innerHTML="<form class=\"dynamicForm\" name="+dynamicFormName+"action=\"#\">"
+	+"<input type = \"submit\" value = \"submit\"/></form>";
+
+}
+
+function GetName(){
+		var labelName = prompt("Enter label");
+		var req = prompt("Is this field required? Y or N");
+		var len = prompt("Enter max character length");
+		len=parseInt(len);
+		
+		
+			if(req=="y" || req=="Y"){
+					$(".dynamicForm").append(labelName+"<input type=\"text\" name=\" "+labelName+"\" id=\"" + labelName+"\" maxlength=\" "+len+"\" required><br>");	
+
+			}
+			else{
+					$(".dynamicForm").append(labelName+"<input type=\"text\" name=\" "+labelName+"\" id=\"" + labelName+"\" maxlength=\" "+len+"\"><br>");	
+
+				}
+	
+}
+function GetPassword(){
+		var labelName = prompt("Enter name or id");
+var req = prompt("Is this field required? Y or N");
+			if(req=="y" || req=="Y"){
+		$(".dynamicForm").append("Password <input type=\"password\" name=\" "+labelName+"\" id=\"" + labelName+"\" required><br>");	
+
+		}
+else {
+$(".dynamicForm").append("Password <input type=\"password\" name=\" "+labelName+"\" id=\"" + labelName+"\"><br>");
+}
+}
+function TextArea(){
+		var labelName = prompt("Enter name");
+		var col=prompt("Enter columns");
+		var row=prompt("Enter rows");
+			var req = prompt("Is this field required? Y or N");
+			if(req=="y" || req=="Y"){
+		$(".dynamicForm").append(labelName+"<textarea name=\"textarea\" cols=\""+col+"\" rows=\""+row+"\" required>"+labelName+"</textarea><br>");	
+		}
+else {
+$(".dynamicForm").append(labelName+"<textarea name=\"textarea\" cols=\""+col+"\" rows=\""+row+"\" >"+labelName+"</textarea><br>");
+}
+}
+function RadioButton(){
+var labelName = prompt("Enter group name");
+		$(".dynamicForm").append(""+labelName+"<br>");
+		
+		var r = prompt("Is this a required field? Y/N");
+		
+		var num = prompt("Enter no. of options");
+		for( i=0;i<num;i++){
+		var opt = prompt("Enter option "+i);
+		if(r=="Y" || r=="y"){
+				$(".dynamicForm").append("<input type=\"radio\" name=\" "+labelName+"\" id=\"" + labelName+"\"  value=\""+opt+"\" required>"+opt+"<br>");
+		}
+		else{
+			$(".dynamicForm").append("<input type=\"radio\" name=\" "+labelName+"\" id=\"" + labelName+"\"  value=\""+opt+"\"/>"+opt+"<br>");		
+		
+		}
+		
+		
+		
+
+		}	
+	 json+='{"element":"input", "type":"radio","name":"'+labelName+'"}';
+	 }
+function CheckBox(){
+	var labelName = prompt("Enter group name");
+		$(".dynamicForm").append(""+labelName+"<br>");
+		
+		var r = prompt("Is this a required field? Y/N");
+		
+		var num = prompt("Enter no. of options");
+		for( i=0;i<num;i++){
+		var opt = prompt("Enter option "+i);
+		if(r=="Y" || r=="y"){
+			$(".dynamicForm").append("<input type=\"checkbox\" name=\" "+labelName+"\" id=\"" + labelName+"\"  value=\""+opt+"\" required>"+opt+"<br>");
+			}
+		else{
+			$(".dynamicForm").append("<input type=\"checkbox\" name=\" "+labelName+"\" id=\"" + labelName+"\"  value=\""+opt+"\">"+opt+"<br>");
+			}
+		}	
+       json+='{"element":"input", "type":"checkbox","name":"'+labelName+'"}';
+}
+function DataList(){
+		var name = prompt("Enter name of Select:");
+		$(".dynamicForm").append("<datalist id=\""+name+"\"><br>");
+		var num=prompt("Number of options");
+		x=parseInt(num);
+	
+		for (i=0; i<x; i++){
+			n=prompt("Enter Option "+i);
+			 $(".dynamicForm").append("<option value=\""+n+"\">"+n+"</option><br>" );   
+		}
+		 $(".dynamicForm").append("</datalist>" );   
+	
+}
+
+function Select(){
+		var name = prompt("Enter name of Select:");
+		$(".dynamicForm").append("<select name=\""+name+"\"><br>");
+		var num=prompt("Number of options");
+		x=parseInt(num);
+	
+		for (i=0; i<x; i++){
+			n=prompt("Enter Option "+i);
+			 $(".dynamicForm").append("<option value=\""+n+"\">"+n+"</option><br>" );   
+		}
+		 $(".dynamicForm").append("</select>" );   
+	
+}
+function Number(){
+		var labelName = prompt("Enter option name");
+		var req = prompt("Is this field required? Y or N");
+		var min = prompt("range starts from");
+		var max = prompt("range upto ");
+		min=parseInt(min);
+		max=parseInt(max);
+			if(req=="y" || req=="Y"){
+		$(".dynamicForm").append("<input type=\"number\" name=\" "+labelName+"\" id=\"" + labelName+"\" min=\""+min+"\" max=\""+max+"\" required><br>");	
+}
+else{
+
+      
+	$(".dynamicForm").append("<input type=\"number\" name=\" "+labelName+"\" id=\"" + labelName+"\" min=\""+min+"\" max=\""+max+"\"><br>");	
+}
+}
+function Keygen(){
+		var labelName = prompt("Enter option name");
+		$(".dynamicForm").append("<input type=\"keygen\" name=\" "+labelName+"\" id=\"" + labelName+"\" /><br>");	
+}
+function createFile(){
+		var labelName = prompt("Enter option name");
+		var req = prompt("Is this field required? Y or N");
+			if(req=="y" || req=="Y"){
+		$(".dynamicForm").append("<input type=\"file\" name=\" "+labelName+"\" id=\"" + labelName+"\" required>");	
+}
+else {
+	$(".dynamicForm").append("<input type=\"file\" name=\" "+labelName+"\" id=\"" + labelName+"\" >");
+}
+}
+function Output(){
+
+
+
+		function getAttrs(DOMelement) {
+    var obj = {};
+    $.each(DOMelement.attributes, function () {
+        if (this.specified) {
+            obj[this.name] = this.value;
+        }
+    });
+    return obj;
+}
+
+$("form").each(function () {
+    var json = {
+        "form": []
+    };
+    $(this).find("input").each(function () {
+        json.form.push(getAttrs(this));
+    });
+
+    $(this).find("select").each(function () {
+        var select = getAttrs(this);
+        select["type"] = "select";
+        var options = [];
+        $(this).children().each(function () {
+            options.push(getAttrs(this));
+        });
+        select["options"] = options;
+        json.form.push(select);
+    });
+	var myString = JSON.stringify(json);
+	localStorage.setItem('myJson',myString);
+	alert("DATA SENT TO HTML5 localSTORAGE");
+    //console.log(json);
+	
+	getJsonData();
+});
+}
+
+
+//QUIZ addition
+function getJsonData(){
+	var myJSON = localStorage.getItem('myJson');
+	alert(myJSON);
+	var parsedJSON = JSON.parse(myJSON);
+	document.getElementById("fields").innerHTML="<form class=\"dynamicForm\" name="+parsedJSON.form[0]+"action=\"#\">"
+	+"<input type = \"submit\" value = \"submit\"/></form>";
+}
+</script>
+</HEAD>
+	<BODY>
+	<div id="createFormBtn"><button class="nice-button orange"onClick="addForm()">Create Form</button></div>
+	<div id="myButtons">
+		<button class="nice-button orange" onClick="GetName()"> Get Name</button>
+		<button class="nice-button orange"onClick="GetPassword()">Get Password</button>
+		<button class="nice-button orange"onClick="Select()">Select</button>
+		<button class="nice-button orange"onClick="RadioButton()">Radio button</button>
+		<button class="nice-button orange"onClick="CheckBox()">Check Box</button>
+		<button class="nice-button orange"onClick="createFile()">Create File</button>
+		<button class="nice-button orange"onClick="DataList()">Data List</button>
+		<button class="nice-button orange"onClick="Number()">Number</button>
+		<button class="nice-button orange"onClick="Keygen()">Keygen</button>
+		<button class="nice-button orange"onClick="TextArea()">Text Area</button>
+		<button class="nice-button orange"onClick="Output()">Submit to JSON</button>
+	</div>
+	<br>
+	<hr>
+	<br>
+	<div id="fields"></div>
+	</BODY>
+</HTML>
